@@ -64,6 +64,7 @@ The boards can then be carefully lifted and laid out.
 
 Here is a closeup of the USB-power delivery board.
 ![USB board](/readme_src/usb-board.png)
+Maybe this could be upgraded to USB-C
 
 And the main board.
 ![Main Board](/readme_src/main_board.png)
@@ -78,3 +79,31 @@ I read:
 CBB81
 2KV 223J
 ```
+
+My interpretation is:
+CBB: Metallized polypropylene film capacitor (a type of film capacitor)
+81: Specific model (built for high votlage pulses)
+
+2KV: Rated voltage of 2000 V DC
+223J: Capacitor code: 22 * 10^3 pF with a tolerance of J = +-5%, so roughly 22,000 pF, or 22 nF
+
+A measurement with my multimeter to confirm the capacitance.
+![Capacitance measurement](/readme_src/capacitance_measurement.png)
+![Capacitance closeup](/readme_src/capacitance_closeup.png)
+In fact the measured 23.269 nF are beyond the nominal tolerace (+5.8%), which could mean that this specific fly swatter does in fact have more oomph than others of the same model.
+
+(Btw, if you have correctly bridged the mesh layers as shown in the beginning of the teardown, your meter should see an open loop)
+
+Theoretically this capacitor could be replaced with one with even more capacitance. I have not researched the implications for the rest of the circuit tho. Also this could turn this relatively dangerous device into a super dangerous device.
+
+In any case it seems relatively easy to swap in case it breaks, which I would assume to be a common failure mode.
+
+## Plan
+
+In order to "count" successfull hits of a conductive object with the swatter, I need to be able to sense discharges of the capacitor. For that, I could
+
+- Directly measure the output of the capacitor to see when it drops.
+- Measure the input of the capacitor, to see when it rises. 
+- Find some other part of the circuit
+
+It might be possible to pick up the 2 KV "zap" electromagnetically from a nearby wire coil. I could feed this coil into the analog input af a microcontroller and handle the rest from there without any modifications to the existing circuit. 
