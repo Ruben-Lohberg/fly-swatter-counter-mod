@@ -106,4 +106,27 @@ In order to "count" successfull hits of a conductive object with the swatter, I 
 - Measure the input of the capacitor, to see when it rises. 
 - Find some other part of the circuit
 
+### Inductive measurement
+
 It might be possible to pick up the 2 KV "zap" electromagnetically from a nearby wire coil. I could feed this coil into the analog input af a microcontroller and handle the rest from there without any modifications to the existing circuit. 
+
+As a proof of concept, I quickly wound a little wire coil and attached it to a LED
+![Wire coil connected to LED](/readme_src/wire_coil.png)
+
+I placed the coil close to the red wire from the positive capacitor terminal
+![Wire coil at red wire](/readme_src/wire_coil.png)
+When I created a zap by shorting the swatters mesh layers with a screwdriver, I was actually able to see a slight glow in the LED.
+
+#### Modulation
+
+Now connecting this coil directly to the analog input of a microcontroller could potentially fry it. I do not know what currents actually get induced into the coil. Just because the LED only glims slightly, does not mean the spike would not be enough to fry an analog input
+
+A large serial resistor should limit the current to microamps. I will try 100 kΩ
+
+Also the spike might be to short to reliably catch, in the microsecones. A small capacitor could widen and smoothen the pulse to milliseconds.
+
+Instead of relying on the MCU's internal clamps, diodes to GND and Vcc could also limit the voltage itself.
+
+At this point we could propably just use a digital input.
+
+####
